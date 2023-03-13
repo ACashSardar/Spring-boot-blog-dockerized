@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{base :: header}"></head>
+
+<body>
+
+	<div th:insert="~{base :: navbar}"></div>
+	<div class="container-fluid p-4 body-section">		
+		<div th:if="${message}" class="alert alert-danger alert-dismissible fade show m-0" >
+			<strong th:text="${message}"></strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<div class="container-fluid d-flex justify-content-center py-2">
+			<form action="#" th:action="@{/adminlogin}" method="post" class="border p-3 my-5 bg-white rounded" style="width:25rem">
+				<p class="fs-2 fw-bold">Admin Login Page</p>	
+		 		<hr>
+				<div class="mb-1">
+					<p class="fs-5 fw-normal">Enter Admin Password</p>
+					<input type="password" class="form-control fw-light rounded-0" name="adminPassword" id="password" placeholder="xxxx" required>
+				</div>
+				<div class="my-1">
+					<br>
+					<input type="submit"  class="rounded-0 fs-5" style="width:100%" value="Login">	
+				</div>
+			</form>		
+		</div>
+	</div>
+	<div th:insert="~{base :: footer}"></div>
+	<div th:insert="~{base :: js-links}"></div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{base :: header}"></head>
+
+<body>
+
+	<div th:insert="~{base :: navbar}"></div>
+	<div th:insert="~{base :: modal}"></div>
+
+	<div class="container-fluid p-4 body-section">
+		<div class="container my-3" style="max-width: 60rem">
+			<p class="fw-bold fs-4 text-start">List of users</p>
+			<table class="table table-hover">
+				<thead class="fs-5 fw-light">
+					<tr>
+						<th scope="col">Profile Pic.</th>
+						<th scope="col">Email</th>
+						<th scope="col">Name</th>
+						<th scope="col">Role</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody th:each="user:${users}">
+					<tr>
+						<td><img th:src="'/posts/image/'+${user.profilePicture}"
+							class="rounded-circle" style="width: 2rem; height: 2rem"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.firstName}+' '+${user.lastName}"></td>
+						<td th:if="${user.roles.size()==2}"><b>ADMIN</b></td>
+						<td th:if="${user.roles.size()==1}"><b>USER</b></td>
+						<td th:if="${user.roles.size()==2}">-</td>
+						<td th:if="${user.roles.size()==1}">
+							<button class="btn btn-outline-danger rounded-1 px-3 py-2"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								onclick="confirmDelete(this)"
+								th:name="@{'/users/delete/'+${user.id}}">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<p class="fw-bold fs-4 text-start">List of categories</p>
+			<table class="table table-hover">
+				<thead class="fs-5 fw-light">
+					<tr>
+						<th scope="col">Category id</th>
+						<th scope="col">Category name</th>
+						<th scope="col">No. of posts</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody th:each="category:${categories}">
+					<tr>
+						<td th:text="${category.id}"></td>
+						<td th:text="${category.categoryName}"></td>
+						<td th:text="${category.posts.size()}"></td>
+						<td>
+							<button class="btn btn-outline-danger rounded-1 px-3 py-2"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								onclick="confirmDelete(this)"
+								th:name="@{'/categories/delete/'+${category.id}}">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div th:insert="~{base :: footer}"></div>
+	<div th:insert="~{base :: js-links}"></div>
+</body>
+</html>
